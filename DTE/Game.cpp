@@ -2,6 +2,7 @@
 #include <string.h>
 #include <thread>
 #include <chrono>
+#include <typeinfo>
 
 #include "Game.h";
 #include "Drawer.h";
@@ -70,11 +71,16 @@ void Game::Render() {
 
 	for (size_t i = 0; i < items->Count(); i++)
 	{
+		auto type = typeid((*items)[i]).name();
+		if (type == typeid(Invader).name()) {
+			dynamic_cast<Invader*>(&(*items)[i])->Play();
+		}
+		
 		auto p = (*items)[i].GetPoint();
 
 		if (p.x > 100 || p.x < 0 || p.y > 100 || p.y < 0)
 			items->Remove((*items)[i]);
-		else 
+		else
 			(*items)[i].Draw();
 	}
 
@@ -130,6 +136,7 @@ void Game::OnSizeChanged(HWND& hwnd) {
 	game->bitmapInfo.bmiHeader.biBitCount = 32;
 	game->bitmapInfo.bmiHeader.biCompression = BI_RGB;
 
+	draw->Resize();
 	Render(); // force to render
 }
 
@@ -156,7 +163,7 @@ void Game::ProceedButtons() {
 		case KeyBoard::Key::UP:
 		case KeyBoard::Key::SPACE:
 			if (keyBoard.IsDownOnce(key))
-				player->Shoot();
+				player->Shoot({ 1, 2 });
 			break;
 		default:
 			break;
@@ -173,15 +180,16 @@ void Game::Init(HINSTANCE hInst) {
 	items = new MovableContainer();
 	draw = new Drawer(this);
 	player = new Player((*this).GetItems(), &(*this).renderInfo, (*this).draw);
-	invaders = new Invader*[4];
-	for (size_t i = 0; i < 4; i++)
+	int invadresCount = 1;
+	invaders = new Invader*[invadresCount];
+	for (size_t i = 0; i < invadresCount; i++)
 	{
-		invaders[i] = new Invader[4];
-		for (size_t j = 0; j < 4; j++)
+		invaders[i] = new Invader[invadresCount];
+		for (size_t j = 0; j < invadresCount; j++)
 		{
 			Point position = Point();
 			position.x = 20. * (i + 1.);
-			position.y = 90 - 20 * j;
+			position.y = 90 - 10 * j;
 			invaders[i][j] = *(new Invader((*this).GetItems(), &(*this).renderInfo, (*this).draw, position));
 		}
 	}

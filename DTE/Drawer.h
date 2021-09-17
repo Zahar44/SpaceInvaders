@@ -1,26 +1,41 @@
 #pragma once
-#include "Bitmap.h";
+#include <map>
+#include <vector>
 
 class Game;
-struct Size {
-	double w = 0, h = 0;
-};
-struct Point {
-	double x = 0, y = 0;
-};
+class Bitmap;
+class Texture;
+class ColisionBox;
+
+namespace Grafic {
+	struct Size {
+		double w = 0, h = 0;
+	};
+	struct Point {
+		double x = 0, y = 0;
+	};
+}
+
+using namespace Grafic;
 
 class Drawer
 {
 public:
 	Drawer(Game* target) {
 		this->target = target;
+		LoadTextures();
 	}
 
 	void Rectangle(Size size, Point point, size_t color);
 	void Background(size_t color);
-	void Texture(Point point, Bitmap& bmp);
+	void WithTexture(std::vector<ColisionBox*>& boxes);
+	
+	void LoadTextures();
+	Texture& GetTexture(const char* key);
 
+	void Resize();
 private:
 	Game* target;
+	std::map<const char*, Texture*> textures;
 };
 

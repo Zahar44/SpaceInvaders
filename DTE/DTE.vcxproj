@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Bitmap.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="ColisionBox.cpp" />
     <ClCompile Include="Drawer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Invader.cpp" />
@@ -148,11 +149,14 @@
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="MovableContainer.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Shootable.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Win32Platform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bitmap.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="ColisionBox.h" />
     <ClInclude Include="Drawer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Invader.h" />
@@ -161,13 +165,15 @@
     <ClInclude Include="MovableContainer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Shootable.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DTE.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="ship_1.bmp" />
-    <Image Include="ship_1.png" />
+    <Text Include="player_1.txt" />
+    <Text Include="ship_1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,14 +1,35 @@
 #include "Invader.h"
+#include "Texture.h"
 
 void Invader::Draw() {
 	CalculateVelocity();
 
-	Size s1 = { size.w / 3, size.h / 2 };
-	Point p1 = { point.x, point.y };
-	draw->Rectangle(s1, p1, color);
-	//draw->Texture(point, texture);
-
-	Size s2 = { size.w - size.w / 5, size.h / 2 };
-	Point p2 = { point.x, point.y - size.h / 2 };
-	draw->Rectangle(s2, p2, color);
+	draw->WithTexture(boxes);
 }
+
+void Invader::Play() {
+	static bool rigth = true;
+	static int k = 0;
+	if (point.x > 95)
+		rigth = false;
+	if (point.x < 5)
+		rigth = true;
+
+	Force2D force;
+	if (rigth)
+		force = { 5, 0 };
+	else
+		force = { -5, 0 };
+	if (k++ > 100) {
+		Shoot({ 1, 2 });
+		k = 0;
+	}
+	(*this).ApplyForce(force);
+}
+
+void Invader::Resize() {
+	Texture texture = draw->GetTexture(Invader::type);
+	Size blockSize = { size.w / texture.Size(), size.h / texture.Size() };
+}
+
+const char* Invader::type = typeid(Invader).name();

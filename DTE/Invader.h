@@ -4,20 +4,25 @@
 #include "Movable.h";
 #include "MovableContainer.h";
 #include "Bitmap.h";
+#include "Shootable.h";
 
-class Invader : public Movable {
+class Invader : public Shootable {
 public:
 
 	Invader() = default;
 
 	Invader(MovableContainer* items, Game::RenderInfo* renderInfo, Drawer* draw, Point startPoint) :
-		Movable(items, renderInfo, draw, { 5, 5 }, startPoint, 0xff00ff, 100) {
-		texture.LoadFile("D:\\projects\\DTE\\DTE\\ship_1.bmp");
+		Shootable(-0.5),
+		Movable(items, renderInfo, draw, { 5, 15 }, startPoint, 0xff00ff, 100) {
+		boxes = *ColisionBox::Create(draw->GetTexture(Invader::type), size, point);
 	}
 
 	void Draw() override;
-
+	void Play();
 private:
-	Bitmap texture;
+	static const char* type;
+
+	// Inherited via Movable
+	virtual void Resize() override;
 };
 

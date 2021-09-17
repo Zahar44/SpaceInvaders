@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Movable">
+      <UniqueIdentifier>{0705e606-354e-4c05-805f-3ade4986b7d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Grafic">
+      <UniqueIdentifier>{3dd27244-fb94-41e1-9fb7-2dbfbee513fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Movable">
+      <UniqueIdentifier>{bcb7f9d0-9ae5-489f-bacf-574c1d5d3c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Grafic">
+      <UniqueIdentifier>{15fca9d3-aa30-40bd-b894-9094fd65a595}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Win32Platform.cpp">
@@ -21,61 +33,79 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Drawer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="KeyBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Invader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Movable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Movable</Filter>
+    </ClCompile>
+    <ClCompile Include="Invader.cpp">
+      <Filter>Source Files\Movable</Filter>
     </ClCompile>
     <ClCompile Include="MovableContainer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Movable</Filter>
+    </ClCompile>
+    <ClCompile Include="Movable.cpp">
+      <Filter>Source Files\Movable</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Movable</Filter>
     </ClCompile>
     <ClCompile Include="Bitmap.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Grafic</Filter>
+    </ClCompile>
+    <ClCompile Include="ColisionBox.cpp">
+      <Filter>Source Files\Grafic</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawer.cpp">
+      <Filter>Source Files\Grafic</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Grafic</Filter>
+    </ClCompile>
+    <ClCompile Include="Shootable.cpp">
+      <Filter>Source Files\Movable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Drawer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="KeyBoard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Invader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Movable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MovableContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Movable.h">
+      <Filter>Header Files\Movable</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Movable</Filter>
+    </ClInclude>
+    <ClInclude Include="Invader.h">
+      <Filter>Header Files\Movable</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files\Movable</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Grafic</Filter>
+    </ClInclude>
     <ClInclude Include="Bitmap.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Grafic</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawer.h">
+      <Filter>Header Files\Grafic</Filter>
+    </ClInclude>
+    <ClInclude Include="ColisionBox.h">
+      <Filter>Header Files\Grafic</Filter>
+    </ClInclude>
+    <ClInclude Include="MovableContainer.h">
+      <Filter>Header Files\Movable</Filter>
+    </ClInclude>
+    <ClInclude Include="Shootable.h">
+      <Filter>Header Files\Movable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -84,11 +114,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="ship_1.png">
+    <Text Include="ship_1.txt">
       <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="ship_1.bmp">
+    </Text>
+    <Text Include="player_1.txt">
       <Filter>Resource Files</Filter>
-    </Image>
+    </Text>
   </ItemGroup>
 </Project>

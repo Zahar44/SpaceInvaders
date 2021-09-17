@@ -3,6 +3,7 @@
 
 #include "Drawer.h";
 #include "Game.h";
+#include "ColisionBox.h"
 
 struct Force2D {
 	double horizontal, vertical;
@@ -58,6 +59,7 @@ struct Force2D {
 
 class MovableContainer;
 
+// TODO: move base logic for Movable and Shootable to base class
 class Movable abstract
 {
 public:
@@ -80,6 +82,15 @@ public:
 	void Kill() {
 		delete this;
 	}
+	void Kill(ColisionBox* box) {
+		for (size_t i = 0; i < boxes.size(); i++)
+		{
+			if (boxes[i] == box)
+				boxes.erase(boxes.begin() + i);
+		}
+		if (boxes.size() == 0)
+			Kill();
+	}
 
 	void ChangeColor(size_t color) {
 		(*this).color = color;
@@ -95,16 +106,9 @@ public:
 		return point;
 	}
 
-	bool InRangeOf(Movable& mov) {
-		double left = mov.point.x - mov.size.w / 2;
-		double right = mov.point.x + mov.size.w / 2;
-		double top = mov.point.y + mov.size.h / 2;
-		double bottom = mov.point.y - mov.size.h / 2;
+	std::vector<ColisionBox*>& GetColisionBoxes() { return boxes; }
 
-		return ((*this).point.x - (*this).size.w / 2 > left && (*this).point.x + (*this).size.w / 2 < right)
-			&& ((*this).point.y - (*this).size.h / 2 > bottom && (*this).point.y + (*this).size.h / 2 < top);
-	}
-
+	ColisionBox* InRangeOf(Movable& mov);
 protected:
 	Size size = { 0, 0 };
 	size_t color = 0;
@@ -112,43 +116,16 @@ protected:
 	Game::RenderInfo* renderInfo;
 	Drawer* draw;
 
+	std::vector<ColisionBox*> boxes;
 	Point point = { 50, 20 };
 	double mass = 100, speed = 0, frictionCoeff = 1;
 	Force2D acceleration;
 
-	virtual void CalculateVelocity() {
-		if (point.x < 2 || point.x > 98) {
-			acceleration.horizontal = -acceleration.horizontal;
-		}
+	virtual void CalculateVelocity();
+	virtual Force2D CalculateFriction(Force2D force);
+	virtual bool InRangeOf(ColisionBox& box);
 
-		Force2D da = CalculateFriction(acceleration) / renderInfo->delta;
-
-		point.x += acceleration.horizontal;
-		point.y += acceleration.vertical;
-		acceleration = (acceleration - da).RoundOff(3);
-	}
-
-	virtual Force2D CalculateFriction(Force2D force) {
-		Force2D friction = 
-		{ 
-			mass * 9.8 * frictionCoeff,
-			mass * 9.8 * frictionCoeff
-		};
-
-		friction.horizontal = min(fabs(friction.horizontal), fabs(force.horizontal));
-		friction.vertical = min(fabs(friction.vertical), fabs(force.vertical));
-
-		if(force.horizontal < 0)
-			friction.horizontal = -friction.horizontal;
-		if(force.vertical < 0)
-			friction.vertical = -friction.vertical;
-
-		return friction;
-	}
-
+	virtual void Resize() = 0;
 private:
-	bool sameSigns(double x, double y)
-	{
-		return x > 0 && y > 0 || x < 0 && y < 0;
-	}
+	bool SameSigns(double x, double y);
 };

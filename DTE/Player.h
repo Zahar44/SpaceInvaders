@@ -6,18 +6,25 @@
 #include "Bullet.h";
 #include "Movable.h";
 #include "MovableContainer.h";
+#include "Shootable.h";
 
-class Player : public Movable
+class Player : public Shootable
 {
 public:
-	Player(MovableContainer* items, Game::RenderInfo* renderInfo, Drawer* draw) : 
-		Movable(items, renderInfo, draw, { 5, 5 }, { 50, 20 }, 0x00FDFF, 300) {
+	Player(MovableContainer* items, Game::RenderInfo* renderInfo, Drawer* draw) :
+		Shootable(0.5), 
+		Movable(items, renderInfo, draw, { 5, 5 }, { 50, 10 }, 0x00FDFF, 300) {
 		this->items = items;
+		boxes = *ColisionBox::Create(draw->GetTexture(Player::type), size, point);
 	}
 
 	void Draw() override;
-	void Shoot();
 private:
+	static const char* type;
 	MovableContainer* items;
+
+	// Inherited via Movable
+	virtual void CalculateVelocity() override;
+	virtual void Resize() override;
 };
 

@@ -1,10 +1,9 @@
 #include "Bullet.h"
 
 void Bullet::Draw() {
-	if (!CheckColision()) {
-		draw->Rectangle(size, point, color);
-		CalculateVelocity();
-	}
+	draw->Rectangle(size, point, color);
+	CalculateVelocity();
+	CheckColision();
 }
 
 bool Bullet::CheckColision() {
@@ -19,11 +18,16 @@ bool Bullet::CheckColision() {
 }
 
 bool Bullet::CheckColision(Movable& item) {
-	if (InRangeOf(item)) {
-		item.Kill();
+	ColisionBox* box = InRangeOf(item);
+	if (box) {
+		item.Kill(box);
 		(*this).Kill();
 		return true;
 	}
 
 	return false;
+}
+
+void Bullet::Resize()
+{
 }

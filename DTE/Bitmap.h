@@ -1,6 +1,8 @@
 #pragma once
 #include <fstream>
 
+#include "Drawer.h";
+
 struct Color
 {
 	char r, g, b;
@@ -19,18 +21,19 @@ public:
 	}
 
 	size_t operator[](int i) {
-		if (i > size)
+		if (i > size.h * size.w)
 			throw std::exception("Out of range");
 		return ((data[i].r & 0xff) << 16) + ((data[i].g & 0xff) << 8) + (data[i].b & 0xff);
 	}
 
-	size_t Size() {
+	Grafic::Size Size() {
 		return size;
 	}
 
+	void Resize(Grafic::Size size);
 	void LoadFile(const char* path);
 private:
 	Color* data;
-	size_t size;
+	Grafic::Size size;
 };
 
