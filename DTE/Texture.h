@@ -7,6 +7,11 @@
 using std::string;
 using std::vector;
 
+struct PixelInfo {
+	double color;
+	bool exist;
+};
+
 class Texture {
 public:
 	Texture(const char* path);
@@ -26,11 +31,12 @@ public:
 	int MaxRowSize();
 	int ColSize();
 	
-	double operator [](int index);
+	PixelInfo operator [](int index);
 private:
-	vector<vector<string>> data;
+	vector<vector<PixelInfo>> data;
 	int size;
 
 	void LoadLine(string line);
+	PixelInfo& GetPixel(string value);
 };
 

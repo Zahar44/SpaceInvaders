@@ -2,12 +2,13 @@
 
 Shootable::Shootable(double shootPower) {
 	this->shootPower = shootPower;
+	delayMax = 100;
 }
 
 void Shootable::Shoot(Size bulletSize) {
-	Point p = { point.x, point.y };
-	p.y = shootPower > 0 ? p.y + size.h / 2 : p.y - size.h + bulletSize.h;
-	p.x = p.x + size.w / 2 - bulletSize.w;
-	auto bullet = new Bullet(items, renderInfo, draw, p, bulletSize);
+	Point location = { point.x, point.y };
+	location.y = shootPower > 0 ? location.y + size.h / 2 : location.y - size.h + bulletSize.h;
+	location.x = location.x + size.w / 2 - bulletSize.w;
+	auto bullet = new Bullet(items, renderInfo, draw, location, bulletSize);
 	bullet->ApplyForce({ acceleration.horizontal / 2, shootPower });
 }

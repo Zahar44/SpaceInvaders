@@ -1,6 +1,7 @@
 #include "Texture.h"
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 Texture::Texture(const char* path) {
 	size = 0;
@@ -17,28 +18,37 @@ void Texture::LoadFile(const char* path) {
 
 	string line;
 	while (std::getline(file, line)) {
+		line.erase(std::remove_if(line.begin(), line.end(), isspace), line.end());
 		LoadLine(line);
 	}
 }
 
 void Texture::LoadLine(string line) {
-	vector<string> lineData = *new vector<string>();
-	
-	string pixel = "";
-	for (size_t i = 0; i < line.size(); i++)
-	{
-		if (line[i] != ' ') {
-			pixel += line[i];
-		}
-		else {
-			lineData.push_back(pixel);
-			size++;
-			pixel = "";
-		}
+	std::stringstream stream(line);
+	string value;
+	vector<PixelInfo> pixels;
+
+	while (std::getline(stream, value, ',')) {
+		pixels.push_back(GetPixel(value));
+		size++;
 	}
-	lineData.push_back(pixel);
-	size++;
-	data.push_back(lineData);
+
+	data.push_back(pixels);
+}
+
+PixelInfo& Texture::GetPixel(string value) {
+	PixelInfo pixel = { 0xffffff, false };
+
+	if (value[0] == '{') {
+		pixel.exist = value.substr(value.find_first_of('{') + 1, value.find_first_of(':') - 1) == "1";
+		string s = value.substr(value.find_first_of(':') + 1, value.find_first_of('}') - 3);
+		pixel.color = stod(s);
+	}
+	else {
+		pixel.exist = std::stoi(value);
+	}
+
+	return pixel;
 }
 
 int Texture::MaxRowSize() {
@@ -58,14 +68,14 @@ int Texture::ColSize() {
 
 
 
-double Texture::operator[](int index) {
+PixelInfo Texture::operator[](int index) {
 	int k = 0;
 	for (size_t i = 0; i < data.size(); i++)
 	{
 		for (size_t j = 0; j < data[i].size(); j++)
 		{
 			if (k++ == index)
-				return std::stod(data[i][j]);
+				return data[i][j];
 		}
 	}
 

@@ -9,7 +9,6 @@ void Invader::Draw() {
 
 void Invader::Play() {
 	static bool rigth = true;
-	static int k = 0;
 	if (point.x > 95)
 		rigth = false;
 	if (point.x < 5)
@@ -20,9 +19,9 @@ void Invader::Play() {
 		force = { 5, 0 };
 	else
 		force = { -5, 0 };
-	if (k++ > 100) {
+	if (delay++ > delayMax) {
 		Shoot({ 1, 2 });
-		k = 0;
+		delay = 0;
 	}
 	(*this).ApplyForce(force);
 }

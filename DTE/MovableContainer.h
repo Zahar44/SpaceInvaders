@@ -4,29 +4,14 @@
 
 #include "Movable.h";
 
-class MovableContainer
-{
+class MovableContainer {
 public:
 	MovableContainer() {}
 
-	void Add(Movable& m) {
-		items.push_back(&m);
-	}
-
-	void Remove(Movable& m) {
-		for (size_t i = 0; i < items.size(); i++)
-		{
-			if (&m == items[i]) {
-				items.erase(items.begin() + i);
-				break;
-			}
-		}
-	}
-
-	int Count() {
-		return items.size();
-	}
-
+	void Add(Movable& m);
+	void Remove(Movable& m);
+	int Count();
+	
 	Movable& operator[](int i) {
 		return *items[i];
 	}

@@ -79,7 +79,7 @@ void Game::Render() {
 		auto p = (*items)[i].GetPoint();
 
 		if (p.x > 100 || p.x < 0 || p.y > 100 || p.y < 0)
-			items->Remove((*items)[i]);
+			(*items).Remove((*items)[i]);
 		else
 			(*items)[i].Draw();
 	}
@@ -180,12 +180,11 @@ void Game::Init(HINSTANCE hInst) {
 	items = new MovableContainer();
 	draw = new Drawer(this);
 	player = new Player((*this).GetItems(), &(*this).renderInfo, (*this).draw);
-	int invadresCount = 1;
-	invaders = new Invader*[invadresCount];
-	for (size_t i = 0; i < invadresCount; i++)
+	invaders = new Invader*[2];
+	for (size_t i = 0; i < 2; i++)
 	{
-		invaders[i] = new Invader[invadresCount];
-		for (size_t j = 0; j < invadresCount; j++)
+		invaders[i] = new Invader[1];
+		for (size_t j = 0; j < 1; j++)
 		{
 			Point position = Point();
 			position.x = 20. * (i + 1.);

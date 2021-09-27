@@ -25,4 +25,3 @@ private:
 	// Inherited via Movable
 	virtual void Resize() override;
 };
-

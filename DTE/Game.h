@@ -26,7 +26,6 @@ public:
 
 		Init(hInst);
 	}
-
 	~Game();
 
 	void Start();

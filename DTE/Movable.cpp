@@ -25,7 +25,33 @@ Movable::Movable(
 }
 
 Movable::~Movable() {
-	items->Remove(*this);
+	//items->Remove(*this);
+}
+
+void Movable::Kill() {
+	(*items).Remove(*this);
+}
+
+void Movable::Kill(ColisionBox* box) {
+	for (size_t i = 0; i < boxes.size(); i++)
+	{
+		if (boxes[i] == box)
+			boxes.erase(boxes.begin() + i);
+	}
+	if (boxes.size() == 0)
+		Kill();
+}
+
+void Movable::ChangeColor(size_t color) {
+	(*this).color = color;
+}
+
+void Movable::ApplyForce(Force2D force) {
+	acceleration = acceleration + force / mass;
+}
+
+Point Movable::GetPoint() {
+	return point;
 }
 
 ColisionBox* Movable::InRangeOf(Movable& mov) {

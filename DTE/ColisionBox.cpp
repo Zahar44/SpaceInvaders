@@ -22,8 +22,8 @@ std::vector<ColisionBox*>* ColisionBox::Create(Texture& texture, Size size, Poin
 		int wSize = texture.Size(i);
 		for (size_t j = 0; j < wSize; j++)
 		{
-			if (texture[k++] != 0)
-				out->push_back(new ColisionBox(blockSize, point, 0xffffff));
+			if (texture[k++].exist)
+				out->push_back(new ColisionBox(blockSize, point, texture[k - 1].color));
 			point.x += blockSize.w - smoothCoef;
 		}
 		point.x -= (blockSize.w - smoothCoef) * wSize;

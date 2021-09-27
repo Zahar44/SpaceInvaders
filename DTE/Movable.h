@@ -79,36 +79,17 @@ public:
 
 	~Movable();
 
-	void Kill() {
-		delete this;
-	}
-	void Kill(ColisionBox* box) {
-		for (size_t i = 0; i < boxes.size(); i++)
-		{
-			if (boxes[i] == box)
-				boxes.erase(boxes.begin() + i);
-		}
-		if (boxes.size() == 0)
-			Kill();
-	}
+	void Kill();
+	void Kill(ColisionBox* box);
 
-	void ChangeColor(size_t color) {
-		(*this).color = color;
-	}
-
-	virtual void Draw() = 0;
-	
-	void ApplyForce(Force2D force) {
-		acceleration = acceleration + force / mass;
-	}
-
-	Point GetPoint() {
-		return point;
-	}
-
+	void ApplyForce(Force2D force);
+	void ChangeColor(size_t color);
+	Point GetPoint();
 	std::vector<ColisionBox*>& GetColisionBoxes() { return boxes; }
 
 	ColisionBox* InRangeOf(Movable& mov);
+
+	virtual void Draw() = 0;
 protected:
 	Size size = { 0, 0 };
 	size_t color = 0;
