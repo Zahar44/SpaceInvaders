@@ -26,10 +26,10 @@ void Drawer::Rectangle(Size size, Point point, size_t color) {
 
 	for (size_t i = hStart; i < hEnd && i < render.heigth; i++)
 	{
-		size_t* pixel = (size_t*)render.buffer + wStart + i * render.wigth;
+		int* pixel = (int*)render.buffer + wStart + i * render.wigth;
 		for (size_t j = wStart; j < wEnd && j < render.wigth; j++)
 		{
-			*pixel++ = color;
+			*pixel++ = (int)color;
 		}
 	}
 }
@@ -37,7 +37,7 @@ void Drawer::Rectangle(Size size, Point point, size_t color) {
 void Drawer::Background(size_t color) {
 	if (!target->renderInfo.buffer) return;
 	auto render = target->renderInfo;
-	size_t* pixel = (size_t*)render.buffer;
+	int* pixel = (int*)render.buffer;
 
 	for (size_t i = 0; i < render.heigth; i++)
 	{
